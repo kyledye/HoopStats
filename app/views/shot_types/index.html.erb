@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Shot types</h1>
+
+<div id="shot_types">
+  <% @shot_types.each do |shot_type| %>
+    <%= render shot_type %>
+    <p>
+      <%= link_to "Show this shot type", shot_type %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New shot type", new_shot_type_path %>

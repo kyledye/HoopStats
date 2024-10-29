@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @shot_grade %>
+
+<div>
+  <%= link_to "Edit this shot grade", edit_shot_grade_path(@shot_grade) %> |
+  <%= link_to "Back to shot grades", shot_grades_path %>
+
+  <%= button_to "Destroy this shot grade", @shot_grade, method: :delete %>
+</div>

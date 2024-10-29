@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @play_action %>
+
+<div>
+  <%= link_to "Edit this play action", edit_play_action_path(@play_action) %> |
+  <%= link_to "Back to play actions", play_actions_path %>
+
+  <%= button_to "Destroy this play action", @play_action, method: :delete %>
+</div>

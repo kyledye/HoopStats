@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @shot_type %>
+
+<div>
+  <%= link_to "Edit this shot type", edit_shot_type_path(@shot_type) %> |
+  <%= link_to "Back to shot types", shot_types_path %>
+
+  <%= button_to "Destroy this shot type", @shot_type, method: :delete %>
+</div>

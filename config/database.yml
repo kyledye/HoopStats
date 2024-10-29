@@ -1,0 +1,23 @@
+# config/database.yml
+
+default: &default
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password: All4Family!23
+  host: localhost
+
+development:
+  <<: *default
+  database: hoop_stats_development
+
+test:
+  <<: *default
+  database: hoop_stats_test
+
+production:
+  <<: *default
+  database: hoop_stats_production
+  username: <your_production_username>
+  password: <your_production_password>

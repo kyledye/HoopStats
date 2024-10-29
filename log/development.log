@@ -1,0 +1,249 @@
+Started GET "/" for 127.0.0.1 at 2024-10-29 16:06:44 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.1ms | Allocations: 182)
+  Rendered layout layouts/application.html.erb (Duration: 101.8ms | Allocations: 97685)
+Completed 200 OK in 115ms (Views: 105.4ms | ActiveRecord: 0.0ms | Allocations: 106355)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2024-10-29 16:06:52 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/users/sign_in"):
+  
+Started GET "/" for ::1 at 2024-10-29 16:16:03 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.2ms | Allocations: 181)
+  Rendered layout layouts/application.html.erb (Duration: 37.0ms | Allocations: 33502)
+Completed 200 OK in 45ms (Views: 39.0ms | ActiveRecord: 0.0ms | Allocations: 39247)
+
+
+Started GET "/users/sign_in" for ::1 at 2024-10-29 16:16:08 -0400
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering /Users/kyledye/.asdf/installs/ruby/3.3.4/lib/ruby/gems/3.3.0/gems/devise-4.9.4/app/views/devise/sessions/new.html.erb within layouts/application
+  Rendered /Users/kyledye/.asdf/installs/ruby/3.3.4/lib/ruby/gems/3.3.0/gems/devise-4.9.4/app/views/devise/shared/_links.html.erb (Duration: 0.5ms | Allocations: 550)
+  Rendered /Users/kyledye/.asdf/installs/ruby/3.3.4/lib/ruby/gems/3.3.0/gems/devise-4.9.4/app/views/devise/sessions/new.html.erb within layouts/application (Duration: 10.4ms | Allocations: 5188)
+  Rendered layout layouts/application.html.erb (Duration: 11.3ms | Allocations: 6288)
+Completed 200 OK in 48ms (Views: 13.2ms | ActiveRecord: 20.5ms | Allocations: 16913)
+
+
+Started GET "/users/password/new" for ::1 at 2024-10-29 16:16:16 -0400
+Processing by Devise::PasswordsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering /Users/kyledye/.asdf/installs/ruby/3.3.4/lib/ruby/gems/3.3.0/gems/devise-4.9.4/app/views/devise/passwords/new.html.erb within layouts/application
+  Rendered /Users/kyledye/.asdf/installs/ruby/3.3.4/lib/ruby/gems/3.3.0/gems/devise-4.9.4/app/views/devise/shared/_error_messages.html.erb (Duration: 0.4ms | Allocations: 212)
+  Rendered /Users/kyledye/.asdf/installs/ruby/3.3.4/lib/ruby/gems/3.3.0/gems/devise-4.9.4/app/views/devise/shared/_links.html.erb (Duration: 0.2ms | Allocations: 121)
+  Rendered /Users/kyledye/.asdf/installs/ruby/3.3.4/lib/ruby/gems/3.3.0/gems/devise-4.9.4/app/views/devise/passwords/new.html.erb within layouts/application (Duration: 3.5ms | Allocations: 1293)
+  Rendered layout layouts/application.html.erb (Duration: 5.2ms | Allocations: 2330)
+Completed 200 OK in 8ms (Views: 6.1ms | ActiveRecord: 0.0ms | Allocations: 3009)
+
+
+Started GET "/users/sign_up" for ::1 at 2024-10-29 16:16:16 -0400
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering /Users/kyledye/.asdf/installs/ruby/3.3.4/lib/ruby/gems/3.3.0/gems/devise-4.9.4/app/views/devise/registrations/new.html.erb within layouts/application
+  Rendered /Users/kyledye/.asdf/installs/ruby/3.3.4/lib/ruby/gems/3.3.0/gems/devise-4.9.4/app/views/devise/shared/_error_messages.html.erb (Duration: 0.0ms | Allocations: 13)
+  Rendered /Users/kyledye/.asdf/installs/ruby/3.3.4/lib/ruby/gems/3.3.0/gems/devise-4.9.4/app/views/devise/shared/_links.html.erb (Duration: 0.1ms | Allocations: 75)
+  Rendered /Users/kyledye/.asdf/installs/ruby/3.3.4/lib/ruby/gems/3.3.0/gems/devise-4.9.4/app/views/devise/registrations/new.html.erb within layouts/application (Duration: 1.9ms | Allocations: 1446)
+  Rendered layout layouts/application.html.erb (Duration: 3.0ms | Allocations: 2483)
+Completed 200 OK in 5ms (Views: 4.3ms | ActiveRecord: 0.0ms | Allocations: 3207)
+
+
+Started GET "/users/sign_up" for ::1 at 2024-10-29 16:17:05 -0400
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_error_messages.html.erb (Duration: 0.2ms | Allocations: 205)
+  Rendered devise/shared/_links.html.erb (Duration: 0.4ms | Allocations: 473)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 2.2ms | Allocations: 2729)
+  Rendered layout layouts/application.html.erb (Duration: 7.5ms | Allocations: 17130)
+Completed 200 OK in 16ms (Views: 9.1ms | ActiveRecord: 3.8ms | Allocations: 23135)
+
+
+Started POST "/users" for ::1 at 2024-10-29 16:17:18 -0400
+Processing by Devise::RegistrationsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"first_name"=>"Kyle", "last_name"=>"Dye", "email"=>"kyle.dye@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (2.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = CAST('kyle.dye@gmail.com' AS BINARY) LIMIT 1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_error_messages.html.erb (Duration: 0.2ms | Allocations: 466)
+  Rendered devise/shared/_links.html.erb (Duration: 0.0ms | Allocations: 68)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 1.1ms | Allocations: 2124)
+  Rendered layout layouts/application.html.erb (Duration: 1.7ms | Allocations: 3174)
+Completed 422 Unprocessable Content in 247ms (Views: 1.9ms | ActiveRecord: 2.9ms | Allocations: 15012)
+
+
+Started GET "/users/sign_in" for ::1 at 2024-10-29 16:17:23 -0400
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.2ms | Allocations: 128)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 3.0ms | Allocations: 1357)
+  Rendered layout layouts/application.html.erb (Duration: 4.8ms | Allocations: 2410)
+Completed 200 OK in 8ms (Views: 6.5ms | ActiveRecord: 0.0ms | Allocations: 3152)
+
+
+Started POST "/users/sign_in" for ::1 at 2024-10-29 16:17:26 -0400
+Processing by Devise::SessionsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"kyle.dye@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'kyle.dye@gmail.com' ORDER BY `users`.`id` ASC LIMIT 1[0m
+Redirected to http://localhost:3000/dashboard
+Completed 303 See Other in 234ms (ActiveRecord: 1.1ms | Allocations: 3320)
+
+
+Started GET "/dashboard" for ::1 at 2024-10-29 16:17:27 -0400
+Processing by DashboardController#index as TURBO_STREAM
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 0.1ms | Allocations: 92)
+  Rendered layout layouts/application.html.erb (Duration: 0.8ms | Allocations: 1410)
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.0ms | Allocations: 2161)
+
+
+Started GET "/dashboard" for ::1 at 2024-10-29 16:27:30 -0400
+Processing by DashboardController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 0.0ms | Allocations: 7)
+  Rendered layout layouts/application.html.erb (Duration: 3.5ms | Allocations: 1234)
+Completed 200 OK in 5ms (Views: 4.2ms | ActiveRecord: 0.0ms | Allocations: 1473)
+
+
+Started GET "/dashboard" for ::1 at 2024-10-29 16:35:06 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by DashboardController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 0.1ms | Allocations: 181)
+  Rendered layout layouts/application.html.erb (Duration: 18.4ms | Allocations: 34619)
+Completed 200 OK in 34ms (Views: 23.0ms | ActiveRecord: 0.0ms | Allocations: 39886)
+
+
+Started GET "/dashboard" for ::1 at 2024-10-29 16:35:09 -0400
+Processing by DashboardController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 0.1ms | Allocations: 7)
+  Rendered layout layouts/application.html.erb (Duration: 2.4ms | Allocations: 1233)
+Completed 200 OK in 4ms (Views: 3.0ms | ActiveRecord: 0.0ms | Allocations: 1477)
+
+
+Started GET "/teams" for ::1 at 2024-10-29 16:35:12 -0400
+Processing by TeamsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering teams/index.html.erb within layouts/application
+  [1m[36mTeam Load (1.8ms)[0m  [1m[34mSELECT `teams`.* FROM `teams`[0m
+  ↳ app/views/teams/index.html.erb:6
+  Rendered teams/index.html.erb within layouts/application (Duration: 4.3ms | Allocations: 1265)
+  Rendered layout layouts/application.html.erb (Duration: 5.6ms | Allocations: 2334)
+Completed 200 OK in 19ms (Views: 4.2ms | ActiveRecord: 2.0ms | Allocations: 6919)
+
+
+Started GET "/teams/new" for ::1 at 2024-10-29 16:35:14 -0400
+Processing by TeamsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering teams/new.html.erb within layouts/application
+  Rendered teams/_form.html.erb (Duration: 1.2ms | Allocations: 993)
+  Rendered teams/new.html.erb within layouts/application (Duration: 1.7ms | Allocations: 1305)
+  Rendered layout layouts/application.html.erb (Duration: 2.8ms | Allocations: 2359)
+Completed 200 OK in 19ms (Views: 3.1ms | ActiveRecord: 5.7ms | Allocations: 10582)
+
+
+Started POST "/teams" for ::1 at 2024-10-29 16:35:15 -0400
+Processing by TeamsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "commit"=>"Create Team"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/teams_controller.rb:27:in `block in create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/teams_controller.rb:27:in `block in create'
+  Rendering layout layouts/application.html.erb
+  Rendering teams/new.html.erb within layouts/application
+  Rendered teams/_form.html.erb (Duration: 0.7ms | Allocations: 980)
+  Rendered teams/new.html.erb within layouts/application (Duration: 0.9ms | Allocations: 1059)
+  Rendered layout layouts/application.html.erb (Duration: 2.0ms | Allocations: 2109)
+Completed 422 Unprocessable Content in 14ms (Views: 2.3ms | ActiveRecord: 2.6ms | Allocations: 7206)
+
+
+Started GET "/teams/new" for ::1 at 2024-10-29 16:39:00 -0400
+Processing by TeamsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:9:in `ensure_login'
+  Rendering layout layouts/application.html.erb
+  Rendering teams/new.html.erb within layouts/application
+  Rendered teams/_form.html.erb (Duration: 0.4ms | Allocations: 551)
+  Rendered teams/new.html.erb within layouts/application (Duration: 0.7ms | Allocations: 836)
+  Rendered layout layouts/application.html.erb (Duration: 5.1ms | Allocations: 15242)
+Completed 200 OK in 21ms (Views: 6.0ms | ActiveRecord: 5.4ms | Allocations: 32863)
+
+
+Started POST "/teams" for ::1 at 2024-10-29 16:39:20 -0400
+Processing by TeamsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "commit"=>"Create Team"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:9:in `ensure_login'
+  Rendering layout layouts/application.html.erb
+  Rendering teams/new.html.erb within layouts/application
+  Rendered teams/_form.html.erb (Duration: 1.1ms | Allocations: 799)
+  Rendered teams/new.html.erb within layouts/application (Duration: 1.4ms | Allocations: 878)
+  Rendered layout layouts/application.html.erb (Duration: 2.7ms | Allocations: 1928)
+Completed 422 Unprocessable Content in 8ms (Views: 3.2ms | ActiveRecord: 0.6ms | Allocations: 4323)
+
+
+Started GET "/teams" for ::1 at 2024-10-29 16:39:21 -0400
+Processing by TeamsController#index as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:9:in `ensure_login'
+  Rendering layout layouts/application.html.erb
+  Rendering teams/index.html.erb within layouts/application
+  [1m[36mTeam Load (0.4ms)[0m  [1m[34mSELECT `teams`.* FROM `teams`[0m
+  ↳ app/views/teams/index.html.erb:6
+  Rendered teams/index.html.erb within layouts/application (Duration: 1.7ms | Allocations: 728)
+  Rendered layout layouts/application.html.erb (Duration: 3.4ms | Allocations: 1783)
+Completed 200 OK in 7ms (Views: 3.3ms | ActiveRecord: 1.0ms | Allocations: 3016)
+
+
+Started GET "/teams/new" for ::1 at 2024-10-29 16:39:23 -0400
+Processing by TeamsController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:9:in `ensure_login'
+  Rendering layout layouts/application.html.erb
+  Rendering teams/new.html.erb within layouts/application
+  Rendered teams/_form.html.erb (Duration: 0.6ms | Allocations: 218)
+  Rendered teams/new.html.erb within layouts/application (Duration: 0.7ms | Allocations: 297)
+  Rendered layout layouts/application.html.erb (Duration: 2.2ms | Allocations: 1351)
+Completed 200 OK in 5ms (Views: 2.5ms | ActiveRecord: 0.4ms | Allocations: 2444)
+
+
+Started POST "/teams" for ::1 at 2024-10-29 16:39:24 -0400
+Processing by TeamsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "commit"=>"Create Team"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:9:in `ensure_login'
+  Rendering layout layouts/application.html.erb
+  Rendering teams/new.html.erb within layouts/application
+  Rendered teams/_form.html.erb (Duration: 1.3ms | Allocations: 795)
+  Rendered teams/new.html.erb within layouts/application (Duration: 1.6ms | Allocations: 874)
+  Rendered layout layouts/application.html.erb (Duration: 3.7ms | Allocations: 1924)
+Completed 422 Unprocessable Content in 10ms (Views: 4.3ms | ActiveRecord: 0.7ms | Allocations: 3674)
+
+
+Started GET "/teams" for ::1 at 2024-10-29 16:39:25 -0400
+Processing by TeamsController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 4 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:9:in `ensure_login'
+  Rendering layout layouts/application.html.erb
+  Rendering teams/index.html.erb within layouts/application
+  [1m[36mTeam Load (0.4ms)[0m  [1m[34mSELECT `teams`.* FROM `teams`[0m
+  ↳ app/views/teams/index.html.erb:6
+  Rendered teams/index.html.erb within layouts/application (Duration: 1.2ms | Allocations: 484)
+  Rendered layout layouts/application.html.erb (Duration: 3.0ms | Allocations: 1554)
+Completed 200 OK in 7ms (Views: 3.1ms | ActiveRecord: 1.1ms | Allocations: 2649)
+
+

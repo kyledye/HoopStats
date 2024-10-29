@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Teammates</h1>
+
+<div id="teammates">
+  <% @teammates.each do |teammate| %>
+    <%= render teammate %>
+    <p>
+      <%= link_to "Show this teammate", teammate %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New teammate", new_teammate_path %>

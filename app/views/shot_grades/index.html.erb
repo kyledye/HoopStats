@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Shot grades</h1>
+
+<div id="shot_grades">
+  <% @shot_grades.each do |shot_grade| %>
+    <%= render shot_grade %>
+    <p>
+      <%= link_to "Show this shot grade", shot_grade %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New shot grade", new_shot_grade_path %>

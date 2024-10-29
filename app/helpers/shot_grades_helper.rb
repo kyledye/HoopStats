@@ -1,0 +1,2 @@
+module ShotGradesHelper
+end
