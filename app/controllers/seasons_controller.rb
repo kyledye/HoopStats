@@ -66,6 +66,6 @@ class SeasonsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def season_params
-      params.fetch(:season, {})
+      params.require(:season).permit(:name, :start_date, :end_date, :sort_order, :active)
     end
 end

@@ -66,6 +66,6 @@ class PlayActionGroupsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def play_action_group_params
-      params.fetch(:play_action_group, {})
+      params.require(:play_action_group).permit(:name, :is_pinned, :active, :sort_order)
     end
 end

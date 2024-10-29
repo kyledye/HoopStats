@@ -66,6 +66,6 @@ class ShotGradesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def shot_grade_params
-      params.fetch(:shot_grade, {})
+      params.require(:shot_grade).permit(:name, :description, :made_multiplier, :missed_multiplier, :score, :active, :sort_order)
     end
 end

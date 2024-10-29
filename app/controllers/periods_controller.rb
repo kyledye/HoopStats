@@ -66,6 +66,6 @@ class PeriodsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def period_params
-      params.fetch(:period, {})
+      params.require(:period).permit(:name, :is_overtime, :active, :sort_order)
     end
 end

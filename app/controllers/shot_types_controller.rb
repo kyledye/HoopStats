@@ -66,6 +66,6 @@ class ShotTypesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def shot_type_params
-      params.fetch(:shot_type, {})
+      params.require(:shot_type).permit(:name, :active, :sort_order)
     end
 end

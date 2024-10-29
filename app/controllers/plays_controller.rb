@@ -66,6 +66,6 @@ class PlaysController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def play_params
-      params.fetch(:play, {})
+      params.require(:play).permit(:game_id, :period_id, :team_id, :play_action_id, :player_id, :foul_id, :game_clock, :sort_order, :shot_grade_id, :shot_type_id, :x_coordinate, :y_coordinate, :canvas_height, :canvas_width)
     end
 end

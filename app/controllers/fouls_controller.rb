@@ -66,6 +66,6 @@ class FoulsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def foul_params
-      params.fetch(:foul, {})
+      params.require(:foul).permit(:name, :description, :is_technical, :active, :sort_order)
     end
 end

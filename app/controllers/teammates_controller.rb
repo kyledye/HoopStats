@@ -66,6 +66,6 @@ class TeammatesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def teammate_params
-      params.fetch(:teammate, {})
+      params.require(:teammate).permit(:season_team_id, :player_id, :jersey_number, :active)
     end
 end

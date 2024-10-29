@@ -66,6 +66,6 @@ class SeasonTeamsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def season_team_params
-      params.fetch(:season_team, {})
+      params.require(:season_team).permit(:season_id, :team_id, :active)
     end
 end
