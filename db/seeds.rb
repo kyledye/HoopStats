@@ -1,3 +1,31 @@
+users = [
+  { first_name: "Kyle", last_name: "Dye", email: "kyle.dye@gmail.com", admin: true },
+  { first_name: "Jamie", last_name: "Dye", email: "jamie.dye@gmail.com", admin: true },
+]
+
+users.each do |user|
+  u = User.find_or_initialize_by(email: user[:email])
+  u.password = SecureRandom.hex if u.new_record?
+  u.first_name = user[:first_name]
+  u.last_name = user[:last_name]
+  u.admin = user[:admin]
+  u.save!
+end
+
+team_levels = [
+  { name: 'Varsity', abbreviation: 'V', active: true, sort_order: 1 },
+  { name: 'Junior Varsity', abbreviation: 'JV', active: true, sort_order: 2 },
+  { name: 'Freshmen', abbreviation: 'F', active: true, sort_order: 3 },
+]
+
+team_levels.each do |team_level|
+  l = TeamLevel.find_or_initialize_by(name: team_level[:name])
+  l.abbreviation = team_level[:abbreviation]
+  l.active = team_level[:active]
+  l.sort_order = team_level[:sort_order]
+  l.save!
+end
+
 play_action_groups = [
   { name: 'Two Point Field Goals', is_pinned: true, active: true, actions: [
     { name: '2pt Made', points: 2, requires_coordinates: true, requires_fouls: false, requires_subsitutions: false },

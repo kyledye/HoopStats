@@ -8,6 +8,6 @@ FactoryBot.define do
     requires_substitutions { false }
     style { "" }
     active { true }
-    sequence(:sort_order) { |n| n.to_i }
+    sequence(:sort_order) { |n| n }
   end
 end

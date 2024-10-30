@@ -4,15 +4,14 @@ class Game < ApplicationRecord
   belongs_to :opponent, class_name: 'Team'
   has_many :plays, dependent: :destroy
 
-  has_many :plays
-
-  validate :valid_date_time_or_nil
+  before_validation :validate_date_time_format
 
   private
 
-  def valid_date_time_or_nil
-    if date_time.present? && !date_time.is_a?(DateTime)
+  def validate_date_time_format
+    if date_time.present? && !(date_time.is_a?(DateTime) || date_time.is_a?(ActiveSupport::TimeWithZone))
       errors.add(:date_time, "must be a valid DateTime or nil")
+      self.date_time = nil # Prevent further issues in DB assignment
     end
   end
 end

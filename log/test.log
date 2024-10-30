@@ -1,0 +1,565 @@
+  [1m[36mActiveRecord::SchemaMigration Load (3.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (4.4ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[35m (23.3ms)[0m  [1m[35mDROP DATABASE IF EXISTS `hoop_stats_test`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE DATABASE `hoop_stats_test` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS `fouls` CASCADE[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE TABLE `fouls` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `description` text, `is_technical` tinyint(1) DEFAULT FALSE, `active` tinyint(1) DEFAULT TRUE, `sort_order` int DEFAULT 999, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, UNIQUE INDEX `index_fouls_on_name` (`name`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `games` CASCADE[0m
+  [1m[35m (4.4ms)[0m  [1m[35mCREATE TABLE `games` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `season_id` bigint NOT NULL, `team_id` bigint NOT NULL, `opponent_id` bigint NOT NULL, `date_time` datetime(6), `number_of_periods` int DEFAULT 4, `allow_overtime` tinyint(1) DEFAULT TRUE, `period_length` int DEFAULT 8, `overtime_length` int DEFAULT 4, `is_away` tinyint(1) DEFAULT FALSE, `is_closed` tinyint(1) DEFAULT FALSE, `current_lineup` json, `counts_against_record` tinyint(1) DEFAULT TRUE, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_games_on_opponent_id` (`opponent_id`), INDEX `index_games_on_season_id` (`season_id`), INDEX `index_games_on_team_id` (`team_id`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `periods` CASCADE[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE TABLE `periods` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `is_overtime` tinyint(1) DEFAULT FALSE, `active` tinyint(1) DEFAULT TRUE, `sort_order` int DEFAULT 999, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, UNIQUE INDEX `index_periods_on_name` (`name`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `play_action_groups` CASCADE[0m
+  [1m[35m (11.7ms)[0m  [1m[35mCREATE TABLE `play_action_groups` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `is_pinned` tinyint(1) DEFAULT FALSE, `active` tinyint(1) DEFAULT TRUE, `sort_order` int DEFAULT 99, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, UNIQUE INDEX `index_play_action_groups_on_name` (`name`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `play_actions` CASCADE[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE `play_actions` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `play_action_group_id` bigint NOT NULL, `name` varchar(255), `points` int DEFAULT 0, `requires_coordinates` tinyint(1) DEFAULT FALSE, `requires_fouls` tinyint(1) DEFAULT FALSE, `requires_substitutions` tinyint(1) DEFAULT FALSE, `style` varchar(255), `active` tinyint(1) DEFAULT TRUE, `sort_order` int DEFAULT 999, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_play_actions_on_play_action_group_id` (`play_action_group_id`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `players` CASCADE[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE TABLE `players` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `user_id` bigint NOT NULL, `first_name` varchar(255), `last_name` varchar(255), `active` tinyint(1) DEFAULT TRUE, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_players_on_user_id` (`user_id`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS `plays` CASCADE[0m
+  [1m[35m (6.5ms)[0m  [1m[35mCREATE TABLE `plays` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `game_id` bigint NOT NULL, `period_id` bigint NOT NULL, `team_id` bigint NOT NULL, `play_action_id` bigint NOT NULL, `player_id` bigint, `foul_id` bigint, `game_clock` int, `sort_order` int, `shot_grade_id` bigint, `shot_type_id` bigint, `x_coordinate` decimal(16,10), `y_coordinate` decimal(16,10), `canvas_height` decimal(16,10), `canvas_width` decimal(16,10), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_plays_on_foul_id` (`foul_id`), INDEX `index_plays_on_game_id` (`game_id`), INDEX `index_plays_on_period_id` (`period_id`), INDEX `index_plays_on_play_action_id` (`play_action_id`), INDEX `index_plays_on_player_id` (`player_id`), INDEX `index_plays_on_shot_grade_id` (`shot_grade_id`), INDEX `index_plays_on_shot_type_id` (`shot_type_id`), INDEX `index_plays_on_team_id` (`team_id`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS `season_teams` CASCADE[0m
+  [1m[35m (5.0ms)[0m  [1m[35mCREATE TABLE `season_teams` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `season_id` bigint NOT NULL, `team_id` bigint NOT NULL, `active` tinyint(1) DEFAULT TRUE, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_season_teams_on_season_id` (`season_id`), INDEX `index_season_teams_on_team_id` (`team_id`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `seasons` CASCADE[0m
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE TABLE `seasons` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `user_id` bigint NOT NULL, `name` varchar(255), `slug` varchar(255), `start_date` date, `end_date` date, `sort_order` int DEFAULT 999, `active` tinyint(1) DEFAULT TRUE, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, UNIQUE INDEX `index_seasons_on_slug` (`slug`), INDEX `index_seasons_on_user_id` (`user_id`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `shot_grades` CASCADE[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE TABLE `shot_grades` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `description` text, `made_multiplier` decimal(10,2), `missed_multiplier` decimal(10,2), `score` int DEFAULT 0, `active` tinyint(1) DEFAULT TRUE, `sort_order` int DEFAULT 9999, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, UNIQUE INDEX `index_shot_grades_on_name` (`name`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `shot_types` CASCADE[0m
+  [1m[35m (3.3ms)[0m  [1m[35mCREATE TABLE `shot_types` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `active` tinyint(1) DEFAULT TRUE, `sort_order` int DEFAULT 9999, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, UNIQUE INDEX `index_shot_types_on_name` (`name`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS `teammates` CASCADE[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE TABLE `teammates` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `season_team_id` bigint NOT NULL, `player_id` bigint NOT NULL, `jersey_number` int, `active` tinyint(1) DEFAULT TRUE, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_teammates_on_player_id` (`player_id`), INDEX `index_teammates_on_season_team_id` (`season_team_id`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `teams` CASCADE[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE TABLE `teams` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `user_id` bigint NOT NULL, `name` varchar(255), `abbreviation` varchar(255), `is_opponent` tinyint(1) DEFAULT FALSE, `primary_color` varchar(255), `secondary_color` varchar(255), `active` tinyint(1) DEFAULT TRUE, `sort_order` int DEFAULT 9999, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_teams_on_user_id` (`user_id`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `users` CASCADE[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE `users` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `email` varchar(255) DEFAULT '' NOT NULL, `encrypted_password` varchar(255) DEFAULT '' NOT NULL, `reset_password_token` varchar(255), `reset_password_sent_at` datetime(6), `remember_created_at` datetime(6), `first_name` varchar(255), `last_name` varchar(255), `admin` tinyint(1) DEFAULT FALSE, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, `jti` varchar(255) NOT NULL, UNIQUE INDEX `index_users_on_email` (`email`), UNIQUE INDEX `index_users_on_jti` (`jti`), UNIQUE INDEX `index_users_on_reset_password_token` (`reset_password_token`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (7.8ms)[0m  [1m[35mALTER TABLE `games` ADD CONSTRAINT `fk_rails_af8980af68`
+FOREIGN KEY (`season_id`)
+  REFERENCES `seasons` (`id`)
+[0m
+  [1m[35m (8.1ms)[0m  [1m[35mALTER TABLE `games` ADD CONSTRAINT `fk_rails_2f0f3b0dc4`
+FOREIGN KEY (`team_id`)
+  REFERENCES `teams` (`id`)
+[0m
+  [1m[35m (10.7ms)[0m  [1m[35mALTER TABLE `games` ADD CONSTRAINT `fk_rails_5b43649fb8`
+FOREIGN KEY (`opponent_id`)
+  REFERENCES `teams` (`id`)
+[0m
+  [1m[35m (5.4ms)[0m  [1m[35mALTER TABLE `play_actions` ADD CONSTRAINT `fk_rails_3cb6ab8b69`
+FOREIGN KEY (`play_action_group_id`)
+  REFERENCES `play_action_groups` (`id`)
+[0m
+  [1m[35m (5.4ms)[0m  [1m[35mALTER TABLE `players` ADD CONSTRAINT `fk_rails_224cac07ce`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+[0m
+  [1m[35m (9.8ms)[0m  [1m[35mALTER TABLE `plays` ADD CONSTRAINT `fk_rails_394439bafe`
+FOREIGN KEY (`foul_id`)
+  REFERENCES `fouls` (`id`)
+[0m
+  [1m[35m (11.8ms)[0m  [1m[35mALTER TABLE `plays` ADD CONSTRAINT `fk_rails_61ee2276d6`
+FOREIGN KEY (`game_id`)
+  REFERENCES `games` (`id`)
+[0m
+  [1m[35m (10.5ms)[0m  [1m[35mALTER TABLE `plays` ADD CONSTRAINT `fk_rails_ed5018a5c0`
+FOREIGN KEY (`period_id`)
+  REFERENCES `periods` (`id`)
+[0m
+  [1m[35m (11.1ms)[0m  [1m[35mALTER TABLE `plays` ADD CONSTRAINT `fk_rails_38d1c401fa`
+FOREIGN KEY (`play_action_id`)
+  REFERENCES `play_actions` (`id`)
+[0m
+  [1m[35m (12.3ms)[0m  [1m[35mALTER TABLE `plays` ADD CONSTRAINT `fk_rails_443b58301c`
+FOREIGN KEY (`player_id`)
+  REFERENCES `players` (`id`)
+[0m
+  [1m[35m (11.2ms)[0m  [1m[35mALTER TABLE `plays` ADD CONSTRAINT `fk_rails_bf75f79f9a`
+FOREIGN KEY (`shot_grade_id`)
+  REFERENCES `shot_grades` (`id`)
+[0m
+  [1m[35m (9.5ms)[0m  [1m[35mALTER TABLE `plays` ADD CONSTRAINT `fk_rails_09e3a7c258`
+FOREIGN KEY (`shot_type_id`)
+  REFERENCES `shot_types` (`id`)
+[0m
+  [1m[35m (11.0ms)[0m  [1m[35mALTER TABLE `plays` ADD CONSTRAINT `fk_rails_05600e60ee`
+FOREIGN KEY (`team_id`)
+  REFERENCES `teams` (`id`)
+[0m
+  [1m[35m (6.0ms)[0m  [1m[35mALTER TABLE `season_teams` ADD CONSTRAINT `fk_rails_2155f0dc86`
+FOREIGN KEY (`season_id`)
+  REFERENCES `seasons` (`id`)
+[0m
+  [1m[35m (6.2ms)[0m  [1m[35mALTER TABLE `season_teams` ADD CONSTRAINT `fk_rails_91293a5993`
+FOREIGN KEY (`team_id`)
+  REFERENCES `teams` (`id`)
+[0m
+  [1m[35m (7.4ms)[0m  [1m[35mALTER TABLE `seasons` ADD CONSTRAINT `fk_rails_26cf28f4af`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+[0m
+  [1m[35m (4.8ms)[0m  [1m[35mALTER TABLE `teammates` ADD CONSTRAINT `fk_rails_4189756a3a`
+FOREIGN KEY (`player_id`)
+  REFERENCES `players` (`id`)
+[0m
+  [1m[35m (5.6ms)[0m  [1m[35mALTER TABLE `teammates` ADD CONSTRAINT `fk_rails_2fb4e9231f`
+FOREIGN KEY (`season_team_id`)
+  REFERENCES `season_teams` (`id`)
+[0m
+  [1m[35m (8.4ms)[0m  [1m[35mALTER TABLE `teams` ADD CONSTRAINT `fk_rails_45096701b6`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[32mINSERT INTO `schema_migrations` (version) VALUES (20241029170917)[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (version) VALUES
+(20241028231449),
+(20241028225728),
+(20241028174456),
+(20241028172651),
+(20241028172531),
+(20241028172355),
+(20241028172026),
+(20241028170656),
+(20241028165221),
+(20241028162419),
+(20241028135818),
+(20241028122417),
+(20241028005804);[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'test', '2024-10-29 21:17:42.399067', '2024-10-29 21:17:42.399073')[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('schema_sha1', '81c9128860a94c0f822d7cc8e08ee0ea04321370', '2024-10-29 21:17:42.400762', '2024-10-29 21:17:42.400764')[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mActiveRecord::InternalMetadata Load (2.0ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[35m (54.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS `hoop_stats_test`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE DATABASE `hoop_stats_test` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS `fouls` CASCADE[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE `fouls` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `description` text, `is_technical` tinyint(1) DEFAULT FALSE, `active` tinyint(1) DEFAULT TRUE, `sort_order` int DEFAULT 999, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, UNIQUE INDEX `index_fouls_on_name` (`name`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `games` CASCADE[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE TABLE `games` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `season_id` bigint NOT NULL, `team_id` bigint NOT NULL, `opponent_id` bigint NOT NULL, `date_time` datetime(6), `number_of_periods` int DEFAULT 4, `allow_overtime` tinyint(1) DEFAULT TRUE, `period_length` int DEFAULT 8, `overtime_length` int DEFAULT 4, `is_away` tinyint(1) DEFAULT FALSE, `is_closed` tinyint(1) DEFAULT FALSE, `current_lineup` json, `counts_against_record` tinyint(1) DEFAULT TRUE, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_games_on_opponent_id` (`opponent_id`), INDEX `index_games_on_season_id` (`season_id`), INDEX `index_games_on_team_id` (`team_id`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `periods` CASCADE[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE TABLE `periods` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `is_overtime` tinyint(1) DEFAULT FALSE, `active` tinyint(1) DEFAULT TRUE, `sort_order` int DEFAULT 999, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, UNIQUE INDEX `index_periods_on_name` (`name`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `play_action_groups` CASCADE[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE `play_action_groups` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `is_pinned` tinyint(1) DEFAULT FALSE, `active` tinyint(1) DEFAULT TRUE, `sort_order` int DEFAULT 99, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, UNIQUE INDEX `index_play_action_groups_on_name` (`name`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS `play_actions` CASCADE[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE `play_actions` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `play_action_group_id` bigint NOT NULL, `name` varchar(255), `points` int DEFAULT 0, `requires_coordinates` tinyint(1) DEFAULT FALSE, `requires_fouls` tinyint(1) DEFAULT FALSE, `requires_substitutions` tinyint(1) DEFAULT FALSE, `style` varchar(255), `active` tinyint(1) DEFAULT TRUE, `sort_order` int DEFAULT 999, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_play_actions_on_play_action_group_id` (`play_action_group_id`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS `players` CASCADE[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE `players` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `user_id` bigint NOT NULL, `first_name` varchar(255), `last_name` varchar(255), `active` tinyint(1) DEFAULT TRUE, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_players_on_user_id` (`user_id`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS `plays` CASCADE[0m
+  [1m[35m (5.8ms)[0m  [1m[35mCREATE TABLE `plays` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `game_id` bigint NOT NULL, `period_id` bigint NOT NULL, `team_id` bigint NOT NULL, `play_action_id` bigint NOT NULL, `player_id` bigint, `foul_id` bigint, `game_clock` int, `sort_order` int, `shot_grade_id` bigint, `shot_type_id` bigint, `x_coordinate` decimal(16,10), `y_coordinate` decimal(16,10), `canvas_height` decimal(16,10), `canvas_width` decimal(16,10), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_plays_on_foul_id` (`foul_id`), INDEX `index_plays_on_game_id` (`game_id`), INDEX `index_plays_on_period_id` (`period_id`), INDEX `index_plays_on_play_action_id` (`play_action_id`), INDEX `index_plays_on_player_id` (`player_id`), INDEX `index_plays_on_shot_grade_id` (`shot_grade_id`), INDEX `index_plays_on_shot_type_id` (`shot_type_id`), INDEX `index_plays_on_team_id` (`team_id`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `season_teams` CASCADE[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE `season_teams` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `season_id` bigint NOT NULL, `team_id` bigint NOT NULL, `active` tinyint(1) DEFAULT TRUE, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_season_teams_on_season_id` (`season_id`), INDEX `index_season_teams_on_team_id` (`team_id`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS `seasons` CASCADE[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE TABLE `seasons` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `user_id` bigint NOT NULL, `name` varchar(255), `slug` varchar(255), `start_date` date, `end_date` date, `sort_order` int DEFAULT 999, `active` tinyint(1) DEFAULT TRUE, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, UNIQUE INDEX `index_seasons_on_slug` (`slug`), INDEX `index_seasons_on_user_id` (`user_id`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS `shot_grades` CASCADE[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE `shot_grades` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `description` text, `made_multiplier` decimal(10,2), `missed_multiplier` decimal(10,2), `score` int DEFAULT 0, `active` tinyint(1) DEFAULT TRUE, `sort_order` int DEFAULT 9999, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, UNIQUE INDEX `index_shot_grades_on_name` (`name`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `shot_types` CASCADE[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE TABLE `shot_types` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `active` tinyint(1) DEFAULT TRUE, `sort_order` int DEFAULT 9999, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, UNIQUE INDEX `index_shot_types_on_name` (`name`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `teammates` CASCADE[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE `teammates` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `season_team_id` bigint NOT NULL, `player_id` bigint NOT NULL, `jersey_number` int, `active` tinyint(1) DEFAULT TRUE, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_teammates_on_player_id` (`player_id`), INDEX `index_teammates_on_season_team_id` (`season_team_id`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `teams` CASCADE[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE `teams` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `user_id` bigint NOT NULL, `name` varchar(255), `abbreviation` varchar(255), `is_opponent` tinyint(1) DEFAULT FALSE, `primary_color` varchar(255), `secondary_color` varchar(255), `active` tinyint(1) DEFAULT TRUE, `sort_order` int DEFAULT 9999, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, INDEX `index_teams_on_user_id` (`user_id`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS `users` CASCADE[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE TABLE `users` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `email` varchar(255) DEFAULT '' NOT NULL, `encrypted_password` varchar(255) DEFAULT '' NOT NULL, `reset_password_token` varchar(255), `reset_password_sent_at` datetime(6), `remember_created_at` datetime(6), `first_name` varchar(255), `last_name` varchar(255), `admin` tinyint(1) DEFAULT FALSE, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, `jti` varchar(255) NOT NULL, UNIQUE INDEX `index_users_on_email` (`email`), UNIQUE INDEX `index_users_on_jti` (`jti`), UNIQUE INDEX `index_users_on_reset_password_token` (`reset_password_token`)) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci[0m
+  [1m[35m (9.8ms)[0m  [1m[35mALTER TABLE `games` ADD CONSTRAINT `fk_rails_af8980af68`
+FOREIGN KEY (`season_id`)
+  REFERENCES `seasons` (`id`)
+[0m
+  [1m[35m (8.7ms)[0m  [1m[35mALTER TABLE `games` ADD CONSTRAINT `fk_rails_2f0f3b0dc4`
+FOREIGN KEY (`team_id`)
+  REFERENCES `teams` (`id`)
+[0m
+  [1m[35m (8.8ms)[0m  [1m[35mALTER TABLE `games` ADD CONSTRAINT `fk_rails_5b43649fb8`
+FOREIGN KEY (`opponent_id`)
+  REFERENCES `teams` (`id`)
+[0m
+  [1m[35m (4.9ms)[0m  [1m[35mALTER TABLE `play_actions` ADD CONSTRAINT `fk_rails_3cb6ab8b69`
+FOREIGN KEY (`play_action_group_id`)
+  REFERENCES `play_action_groups` (`id`)
+[0m
+  [1m[35m (5.3ms)[0m  [1m[35mALTER TABLE `players` ADD CONSTRAINT `fk_rails_224cac07ce`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+[0m
+  [1m[35m (12.8ms)[0m  [1m[35mALTER TABLE `plays` ADD CONSTRAINT `fk_rails_394439bafe`
+FOREIGN KEY (`foul_id`)
+  REFERENCES `fouls` (`id`)
+[0m
+  [1m[35m (9.6ms)[0m  [1m[35mALTER TABLE `plays` ADD CONSTRAINT `fk_rails_61ee2276d6`
+FOREIGN KEY (`game_id`)
+  REFERENCES `games` (`id`)
+[0m
+  [1m[35m (9.7ms)[0m  [1m[35mALTER TABLE `plays` ADD CONSTRAINT `fk_rails_ed5018a5c0`
+FOREIGN KEY (`period_id`)
+  REFERENCES `periods` (`id`)
+[0m
+  [1m[35m (11.3ms)[0m  [1m[35mALTER TABLE `plays` ADD CONSTRAINT `fk_rails_38d1c401fa`
+FOREIGN KEY (`play_action_id`)
+  REFERENCES `play_actions` (`id`)
+[0m
+  [1m[35m (10.3ms)[0m  [1m[35mALTER TABLE `plays` ADD CONSTRAINT `fk_rails_443b58301c`
+FOREIGN KEY (`player_id`)
+  REFERENCES `players` (`id`)
+[0m
+  [1m[35m (9.1ms)[0m  [1m[35mALTER TABLE `plays` ADD CONSTRAINT `fk_rails_bf75f79f9a`
+FOREIGN KEY (`shot_grade_id`)
+  REFERENCES `shot_grades` (`id`)
+[0m
+  [1m[35m (11.0ms)[0m  [1m[35mALTER TABLE `plays` ADD CONSTRAINT `fk_rails_09e3a7c258`
+FOREIGN KEY (`shot_type_id`)
+  REFERENCES `shot_types` (`id`)
+[0m
+  [1m[35m (10.7ms)[0m  [1m[35mALTER TABLE `plays` ADD CONSTRAINT `fk_rails_05600e60ee`
+FOREIGN KEY (`team_id`)
+  REFERENCES `teams` (`id`)
+[0m
+  [1m[35m (6.2ms)[0m  [1m[35mALTER TABLE `season_teams` ADD CONSTRAINT `fk_rails_2155f0dc86`
+FOREIGN KEY (`season_id`)
+  REFERENCES `seasons` (`id`)
+[0m
+  [1m[35m (6.7ms)[0m  [1m[35mALTER TABLE `season_teams` ADD CONSTRAINT `fk_rails_91293a5993`
+FOREIGN KEY (`team_id`)
+  REFERENCES `teams` (`id`)
+[0m
+  [1m[35m (7.4ms)[0m  [1m[35mALTER TABLE `seasons` ADD CONSTRAINT `fk_rails_26cf28f4af`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+[0m
+  [1m[35m (5.3ms)[0m  [1m[35mALTER TABLE `teammates` ADD CONSTRAINT `fk_rails_4189756a3a`
+FOREIGN KEY (`player_id`)
+  REFERENCES `players` (`id`)
+[0m
+  [1m[35m (5.6ms)[0m  [1m[35mALTER TABLE `teammates` ADD CONSTRAINT `fk_rails_2fb4e9231f`
+FOREIGN KEY (`season_team_id`)
+  REFERENCES `season_teams` (`id`)
+[0m
+  [1m[35m (7.9ms)[0m  [1m[35mALTER TABLE `teams` ADD CONSTRAINT `fk_rails_45096701b6`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (version) VALUES (20241030133025)[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (version) VALUES
+(20241029170917),
+(20241028231449),
+(20241028225728),
+(20241028174456),
+(20241028172651),
+(20241028172531),
+(20241028172355),
+(20241028172026),
+(20241028170656),
+(20241028165221),
+(20241028162419),
+(20241028135818),
+(20241028122417),
+(20241028005804);[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'test', '2024-10-30 13:31:07.493006', '2024-10-30 13:31:07.493010')[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('schema_sha1', '8e57be09434a357e797e6fe46f4a74094ffa311c', '2024-10-30 13:31:07.496038', '2024-10-30 13:31:07.496040')[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPeriod Create (0.6ms)[0m  [1m[32mINSERT INTO `periods` (`name`, `is_overtime`, `active`, `sort_order`, `created_at`, `updated_at`) VALUES ('Q#n{}', FALSE, TRUE, 1, '2024-10-30 13:36:44.880715', '2024-10-30 13:36:44.880715')[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[31mROLLBACK[0m

@@ -3,6 +3,6 @@ FactoryBot.define do
     name { "MyString" }
     is_pinned { false }
     active { true }
-    sequence(:sort_order) { |n| n.to_i }
+    sequence(:sort_order) { |n| n }
   end
 end

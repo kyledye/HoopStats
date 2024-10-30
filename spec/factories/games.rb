@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :game do
-    season
-    team
-    opponent
+    association :season
+    association :team
+    association :opponent
     date_time { "2024-10-28 19:14:49" }
     number_of_periods { 4 }
     allow_overtime { true }

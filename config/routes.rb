@@ -1,26 +1,27 @@
 Rails.application.routes.draw do
-  resources :plays
-  resources :games
-  resources :shot_grades
-  resources :shot_types
-  resources :teammates
-  resources :players
-  resources :season_teams
-  resources :teams
-  resources :periods
-  resources :play_actions
-  resources :play_action_groups
-  resources :seasons
-  resources :fouls
-  resources :dashboard, only: [:index]
   root 'home#index'
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  namespace :api do
+    namespace :priv do
+      namespace :v1 do
+        resources :fouls, only: [:index, :show, :create, :update, :destroy]
+        resources :games, only: [:index, :show, :create, :update, :destroy]
+        resources :seasons, only: [:index, :show, :create, :update, :destroy]
+        resources :play_actions, only: [:index, :show, :create, :update, :destroy]
+        resources :play_action_groups, only: [:index, :show, :create, :update, :destroy]
+        resources :plays, only: [:index, :show, :create, :update, :destroy]
+        resources :players, only: [:index, :show, :create, :update, :destroy]
+        resources :periods, only: [:index, :show, :create, :update, :destroy]
+        resources :season_teams, only: [:index, :show, :create, :update, :destroy]
+        resources :shot_grades, only: [:index, :show, :create, :update, :destroy]
+        resources :shot_types, only: [:index, :show, :create, :update, :destroy]
+        resources :teams, only: [:index, :show, :create, :update, :destroy]
+        resources :teammates, only: [:index, :show, :create, :update, :destroy]
+        resources :team_levels, only: [:index, :show, :create, :update, :destroy]
+      end
+    end
+  end
+
   get "up" => "rails/health#show", as: :rails_health_check
-
-  # Defines the root path route ("/")
-  # root "posts#index"
 end

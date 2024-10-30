@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :play do
-    game
-    period
-    team
-    play_action
+    association :game
+    association :period
+    association :team
+    association :play_action
     player { nil }
     foul { nil }
     game_clock { 1 }

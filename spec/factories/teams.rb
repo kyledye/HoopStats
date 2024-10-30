@@ -7,6 +7,6 @@ FactoryBot.define do
     primary_color { Faker::Color.hex_color }
     secondary_color { Faker::Color.hex_color }
     active { true }
-    sequence(:sort_order) { |n| n.to_i }
+    sequence(:sort_order) { |n| n }
   end
 end
